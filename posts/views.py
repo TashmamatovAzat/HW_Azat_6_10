@@ -27,6 +27,7 @@ class TweetViewSet(viewsets.ModelViewSet):
     ordering_fields = ['created', ]
     # pagination_class = pagination.LimitOffsetPagination
     pagination_class = TweetPagination
+
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
@@ -48,6 +49,7 @@ class TweetViewSet(viewsets.ModelViewSet):
             serializer.save(tweet_id=pk)
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
+
 
 class TweetImageViewSet(viewsets.ModelViewSet):
     queryset = TweetImage.objects.all()
@@ -73,6 +75,7 @@ class CommentViewSet(viewsets.ModelViewSet):
             return super().get_queryset().filter(tweet_id=tweet_id)
         else:
             return super().get_queryset()
+
     @action(methods=['POST', ], detail=True,
             permission_classes=[permissions.IsAuthenticated],
             serializer_class=CommentLikeSerializer)
@@ -85,4 +88,3 @@ class CommentViewSet(viewsets.ModelViewSet):
             )
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
-
