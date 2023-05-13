@@ -4,5 +4,4 @@ Pillow
 django-cors-headers
 drf-yasg
 psycopg2-binary
-django-environ
 gunicorn
